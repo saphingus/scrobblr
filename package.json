@@ -7,7 +7,7 @@
     "scrobblr": "./index.js"
   },
   "author": "saphingus",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/saphingus/scrobblr"
