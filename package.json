@@ -3,11 +3,13 @@
   "version": "1.2.2",
   "description": "Last.fm stats in your terminal",
   "type": "module",
-  "bin": {
-    "scrobblr": "index.js"
-  },
+  "bin": { "scrobblr": "./index.js" },
   "author": "saphingus",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saphingus/scrobblr"
+  },
   "dependencies": {
     "commander": "^12.0.0"
   }
