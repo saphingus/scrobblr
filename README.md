@@ -60,8 +60,8 @@ scrobblr compare <period1> <period2> # compare two periods side by side
 |------|----------|-------------|---------|
 | `-p, --period` | artists, tracks, albums | time period | `1month` |
 | `-l, --limit` | all | number of results | `10` |
-| `--live` | recent | auto-refresh every 30s | — |
-| `--json` | all | raw JSON output | — |
+| `--live` | recent | auto-refresh every 30s | - |
+| `--json` | all | raw JSON output | - |
 
 ### periods
 
