@@ -1,9 +1,11 @@
 {
   "name": "scrobblr",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Last.fm stats in your terminal",
   "type": "module",
-  "bin": { "scrobblr": "./index.js" },
+  "bin": {
+    "scrobblr": "./index.js"
+  },
   "author": "saphingus",
   "license": "MIT",
   "repository": {
