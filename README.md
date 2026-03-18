@@ -1,184 +1,171 @@
-<div align="center">
+# scrobblr
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12&height=180&section=header&text=scrobblr&fontSize=70&fontAlignY=35&desc=last.fm+stats+in+your+terminal&descAlignY=60&fontColor=ffffff" />
+A lightweight command-line interface for Last.fm statistics and discovery.
 
-<br/>
-
-[![npm version](https://img.shields.io/npm/v/scrobblr?style=for-the-badge&color=c678dd&labelColor=0d0d0d&logo=npm&logoColor=white)](https://www.npmjs.com/package/scrobblr)
-[![license](https://img.shields.io/badge/license-GPL--v3-c678dd?style=for-the-badge&labelColor=0d0d0d)](LICENSE)
-[![node](https://img.shields.io/badge/node-%3E%3D18-c678dd?style=for-the-badge&labelColor=0d0d0d&logo=node.js&logoColor=white)](https://nodejs.org)
-[![made with node](https://img.shields.io/badge/made_with-node.js-c678dd?style=for-the-badge&labelColor=0d0d0d&logo=node.js&logoColor=6cc24a)](https://nodejs.org)
-
-
-</div>
+[![npm version](https://img.shields.io/npm/v/scrobblr?style=flat-square&color=2563eb&labelColor=1e293b&logo=npm&logoColor=white)](https://www.npmjs.com/package/scrobblr)
+[![license](https://img.shields.io/badge/license-GPL--v3-2563eb?style=flat-square&labelColor=1e293b)](LICENSE)
+[![node](https://img.shields.io/badge/node-%3E%3D18-2563eb?style=flat-square&labelColor=1e293b&logo=node.js&logoColor=white)](https://nodejs.org)
 
 ---
 
-## ▸ what is it
+## Overview
 
-**scrobblr** is a lightweight CLI for [Last.fm](https://last.fm).
+scrobblr is a lightweight command‑line interface for interacting with the Last.fm  API. It provides fast access to your listening statistics, discovery tools, social features directly from the terminal.
+
+**Requirements**: Node.js 18 or higher
 
 ---
 
-## ▸ install
+## Installation
 
 ```bash
 npm install -g scrobblr
 ```
 
-requires **Node.js 18+**
-
 ---
 
-## ▸ setup
+## Quick Start
 
-run the interactive setup command to configure your last.fm api key and username.
+This interactive prompt will guide you through setting up your Last.fm API key and username.
 
 ```bash
 scrobblr setup
 ```
+Config is saved to `~/.config/scrobblr/config.json`.
 
-config is saved to `~/.config/scrobblr/config.json`.
+## Usage
 
----
+scrobblr includes commands for stats, discovery, social features, account actions, and data export. Most commands support `--period`, `--limit`, and `--json`.
 
-## ▸ commands
+### Options
 
-### stats
+- `-p, --period` - time period (`7day`, `1month`, `3month`, `6month`, `12month`, `overall`)
+- `-l, --limit` - number of results (default: 10)
+- `--json` - raw JSON output
 
-| command | description |
-|---------|-------------|
-| `scrobblr setup` | interactive first-time setup |
-| `scrobblr me` | profile overview & global stats |
-| `scrobblr artists` | top artists |
-| `scrobblr tracks` | top tracks |
-| `scrobblr albums` | top albums |
-| `scrobblr recent` | recent scrobbles |
-| `scrobblr recent --live` | auto-refresh every 30s |
-| `scrobblr now` | now playing |
-| `scrobblr now --info` | now playing with track details |
-| `scrobblr streak` | daily scrobble streak |
-| `scrobblr loved` | your loved tracks |
-| `scrobblr compare <p1> <p2>` | compare top artists between two periods |
-| `scrobblr peak` | your peak listening days |
-| `scrobblr heatmap` | scrobble heatmap (last 12 weeks) |
-| `scrobblr milestones` | scrobble milestones (1k, 5k, 10k...) |
-| `scrobblr hour` | listening activity by hour |
-| `scrobblr day` | listening activity by day of week |
-| `scrobblr wrapped` | your annual wrapped |
-
-### discovery
-
-| command | description |
-|---------|-------------|
-| `scrobblr artist <name>` | deep dive on an artist |
-| `scrobblr similar <artist>` | artists similar to one you like |
-| `scrobblr tag <tag>` | top artists for a genre/tag |
-| `scrobblr underground` | artists you love with few global listeners |
-| `scrobblr forgotten` | artists you used to listen to but stopped |
-| `scrobblr new` | artists you discovered this month |
-| `scrobblr obsession` | your current listening obsession |
-
-### social
-
-| command | description |
-|---------|-------------|
-| `scrobblr compare-user <u1> <u2>` | compare two Last.fm profiles |
-| `scrobblr compat <user>` | musical compatibility score |
-| `scrobblr friends` | what your friends are listening to |
-| `scrobblr friends-top` | friends' top artists |
-
-### account *(requires auth)*
-
-| command | description |
-|---------|-------------|
-| `scrobblr auth` | authenticate for write operations |
-| `scrobblr love <track> <artist>` | love a track |
-| `scrobblr unlove <track> <artist>` | unlove a track |
-| `scrobblr ban <track> <artist>` | ban a track |
-| `scrobblr love-now` | love the currently playing track |
-
-> write operations require your API secret key (not just the API key). get both at [last.fm/api/account/create](https://www.last.fm/api/account/create), then run `scrobblr config --secret YOUR_SECRET` and `scrobblr auth`.
-
-### data
-
-| command | description |
-|---------|-------------|
-| `scrobblr export` | export scrobbles to JSON |
-| `scrobblr export --format csv` | export to CSV |
-| `scrobblr export --full` | export up to 10,000 scrobbles |
-| `scrobblr backup` | full profile backup (artists, tracks, loved) |
-| `scrobblr stats-raw` | raw profile stats as JSON |
-| `scrobblr cache` | show cache info |
-| `scrobblr cache --clear` | clear cached data |
-
----
-
-## ▸ options
-
-most commands accept:
-
-| flag | description | default |
-|------|-------------|---------|
-| `-p, --period` | time period | `1month` |
-| `-l, --limit` | number of results | `10` |
-| `--json` | raw JSON output (pipeable) | - |
-
-periods: `7day` - `1month` - `3month` - `6month` - `12month` - `overall`
-
----
-
-## ▸ examples
+### Examples
 
 ```bash
-scrobblr artists -p 7day -l 5           # top 5 artists this week
-scrobblr tracks -p overall -l 20        # top 20 tracks all time
-scrobblr compare 7day overall            # this week vs all time
-scrobblr artist "sewerslvt"             # deep dive
-scrobblr similar "Burial"               # find similar artists
-scrobblr tag "drum and bass"            # top dnb artists
-scrobblr compat someuser                # musical compatibility
-scrobblr export --format csv --full     # export everything
-scrobblr artists --json | jq '.[0]'     # pipe to jq
+scrobblr artists -p 7day -l 5
+scrobblr tracks -p overall -l 20
+scrobblr compare 7day overall
 ```
 
----
+## Commands
 
-## ▸ changelog
+### Stats & Activity
 
-### 2.0.0
-- `now`, `now --info` - now playing with track details
-- `peak` - peak listening days
-- `heatmap` - github-style scrobble calendar
-- `milestones` - scrobble milestone tracker
-- `hour`, `day` - listening patterns by hour/day
-- `wrapped` - annual wrapped
-- `artist <name>` - artist deep dive
-- `similar`, `tag` - discovery commands
-- `underground`, `forgotten`, `new`, `obsession` - smart discovery
-- `compare-user`, `compat`, `friends`, `friends-top` - social commands
-- `auth`, `love`, `unlove`, `ban`, `love-now` - write operations
-- `export`, `backup`, `cache` - data management
-- multi-profile support (`--profile`)
+| Command | Description |
+|--------|-------------|
+| `scrobblr me` | Profile overview and global stats |
+| `scrobblr artists` | Top artists |
+| `scrobblr tracks` | Top tracks |
+| `scrobblr albums` | Top albums |
+| `scrobblr recent` | Recent scrobbles |
+| `scrobblr recent --live` | Auto‑refresh recent scrobbles |
+| `scrobblr now` | Currently playing |
+| `scrobblr now --info` | Now playing with track details |
+| `scrobblr streak` | Daily scrobble streak |
+| `scrobblr loved` | Loved tracks |
+| `scrobblr compare <p1> <p2>` | Compare two periods |
+| `scrobblr peak` | Peak listening days |
+| `scrobblr heatmap` | 12‑week scrobble heatmap |
+| `scrobblr milestones` | Milestone tracker |
+| `scrobblr hour` | Listening activity by hour |
+| `scrobblr day` | Listening activity by weekday |
+| `scrobblr wrapped` | Annual wrapped |
 
-### 1.1.0
-- `recent --live`, `streak`, `compare`, `--json` flag
+### Discovery
 
-### 1.0.0
-- initial release - `me`, `artists`, `tracks`, `albums`, `recent`
+| Command | Description |
+|--------|-------------|
+| `scrobblr artist <name>` | Artist deep dive |
+| `scrobblr similar <artist>` | Similar artists |
+| `scrobblr tag <tag>` | Top artists for a genre/tag |
+| `scrobblr underground` | Artists you love with few listeners |
+| `scrobblr forgotten` | Artists you stopped listening to |
+| `scrobblr new` | Artists discovered this month |
+| `scrobblr obsession` | Your current listening obsession |
 
----
+### Social
 
-## ▸ license
+| Command | Description |
+|--------|-------------|
+| `scrobblr compare-user <u1> <u2>` | Compare two profiles |
+| `scrobblr compat <user>` | Musical compatibility score |
+| `scrobblr friends` | What your friends are listening to |
+| `scrobblr friends-top` | Friends’ top artists |
 
-GNU General Public License v3.0
+### Account (requires auth)
 
----
+| Command | Description |
+|--------|-------------|
+| `scrobblr auth` | Authenticate for write operations |
+| `scrobblr love <track> <artist>` | Love a track |
+| `scrobblr unlove <track> <artist>` | Unlove a track |
+| `scrobblr ban <track> <artist>` | Ban a track |
+| `scrobblr love-now` | Love the currently playing track |
 
-<div align="center">
+### Data & Export
 
-made by **[saphingus](https://github.com/saphingus)** - powered by the [Last.fm API](https://www.last.fm/api)
+| Command | Description |
+|--------|-------------|
+| `scrobblr export` | Export scrobbles (JSON) |
+| `scrobblr export --format csv` | Export CSV |
+| `scrobblr export --full` | Export up to 10k scrobbles |
+| `scrobblr backup` | Full profile backup |
+| `scrobblr stats-raw` | Raw stats (JSON) |
+| `scrobblr cache` | Show cache info |
+| `scrobblr cache --clear` | Clear cache |
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12&height=100&section=footer" />
+## Changelog
+All notable changes to this project are documented here.
 
-</div>
+This project follows the principles of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0.2] - 2026-03-19
+### Changed
+- Improved README structure and examples for better clarity
+
+## [2.0.1] - 2026-03-19
+### Changed
+- Updated README documentation and polished wording
+
+## [2.0.0] - 2026-03-18
+### Added
+- Detailed now‑playing view with track metadata (`now --info`)
+- Peak listening day analysis (`peak`)
+- 12‑week GitHub‑style scrobble heatmap (`heatmap`)
+- Milestone tracking for major scrobble counts (`milestones`)
+- Hourly and weekday listening analytics (`hour`, `day`)
+- Annual listening summary (`wrapped`)
+- Artist deep‑dive reports (`artist <name>`)
+- Similar‑artist and tag‑based discovery (`similar`, `tag`)
+- Smart discovery tools: `underground`, `forgotten`, `new`, `obsession`
+- Social features: `compare-user`, `compat`, `friends`, `friends-top`
+- Write operations: `love`, `unlove`, `ban`, `love-now`
+- Data tools: `export`, `backup`, `cache`
+- Multi‑profile support (`--profile`)
+
+## [1.1.0] - 2026-03-18
+### Added
+- Live‑updating recent scrobbles (`recent --live`)
+- Daily streak tracking (`streak`)
+- Period comparison (`compare`)
+- Raw JSON output (`--json`)
+
+## [1.0.0] - 2026-03-18
+### Added
+- Initial release with core functionality:
+  - `me`, `artists`, `tracks`, `albums`, `recent`
+
+## License
+
+Distributed under the GPL‑3.0 License.
+See the `LICENSE` file for full details.
+
+## Author
+
+Developed and maintained by [saphingus](https://github.com/saphingus).
+Built on top of the Last.fm API.
