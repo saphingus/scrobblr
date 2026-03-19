@@ -35,8 +35,9 @@ scrobblr includes commands for stats, discovery, social features, account action
 
 - `-p, --period` - time period (`7day`, `1month`, `3month`, `6month`, `12month`, `overall`)
 - `-l, --limit` - number of results (default: 10)
-- `--json` - raw JSON output
+- `--json` - raw JSON output on all commands
 - `--live` - auto-refresh every 30s (`recent` only)
+- `--watch` - auto-refresh every 30s (`now` only)
 - `--info` - show full track details (`now` only)
 - `--love` - love the currently playing track (`now` only)
 - `--compact` - compact one-line output (`me` only)
@@ -45,6 +46,7 @@ scrobblr includes commands for stats, discovery, social features, account action
 - `--format <fmt>` - output format, `json` or `csv` (`export` only)
 - `--secret <secret>` - Last.fm API secret (`config` only)
 - `--clear` - clear cached data (`cache` only)
+- `--ttl <minutes>` - set cache TTL in minutes (`cache` only)
 
 ### Examples
 
@@ -99,13 +101,17 @@ If you upgrade scrobblr and new commands are added, re-run the appropriate comma
 | Command | Description |
 |--------|-------------|
 | `scrobblr me` | Profile overview and global stats |
+| `scrobblr me --compact` | Compact one-line profile overview |
 | `scrobblr artists` | Top artists |
 | `scrobblr tracks` | Top tracks |
 | `scrobblr albums` | Top albums |
 | `scrobblr recent` | Recent scrobbles |
 | `scrobblr recent --live` | Auto‑refresh recent scrobbles |
+| `scrobblr recent --artist <name>` | Filter recent scrobbles by artist |
 | `scrobblr now` | Currently playing |
 | `scrobblr now --info` | Now playing with track details |
+| `scrobblr now --love` | Love the currently playing track |
+| `scrobblr now --watch` | Auto-refresh now playing every 30s |
 | `scrobblr streak` | Daily scrobble streak |
 | `scrobblr loved` | Loved tracks |
 | `scrobblr compare <p1> <p2>` | Compare two periods |
@@ -159,6 +165,7 @@ If you upgrade scrobblr and new commands are added, re-run the appropriate comma
 | `scrobblr stats-raw` | Raw stats (JSON) |
 | `scrobblr cache` | Show cache info |
 | `scrobblr cache --clear` | Clear cache |
+| `scrobblr cache --ttl <minutes>` | Set cache TTL in minutes |
 | `scrobblr completions <shell>` | Generate shell completions (fish, zsh, bash) |
 
 ## Changelog
@@ -166,6 +173,15 @@ All notable changes to this project are documented here.
 
 This project follows the principles of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.2.0] - 2026-03-19
+### Added
+* Implemented local caching in the API layer to reduce redundant requests.
+* `cache --status` now displays cache location, file count, and total size.
+* `cache --ttl <minutes>` flag to configure cache expiration time.
+* `now --watch` flag to auto-refresh now playing without flooding the API.
+### Changed
+* API calls are now cached by default with a 5-minute TTL.
 
 ## [2.1.0] - 2026-03-19
 ### Added

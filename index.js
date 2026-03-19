@@ -25,7 +25,7 @@ import {
 } from "./lib/commands/account.js";
 
 import {
-    cmdExport, cmdBackup, cmdStatsRaw, cmdCacheStatus, cmdCacheClear
+    cmdExport, cmdBackup, cmdStatsRaw, cmdCacheStatus, cmdCacheClear, cmdCacheTTL
 } from "./lib/commands/data.js";
 
 import { cmdSetup } from "./lib/commands/setup.js";
@@ -36,10 +36,10 @@ const PERIODS = ["7day", "1month", "3month", "6month", "12month", "overall"];
 program
 .name("scrobblr")
 .description("Last.fm stats in your terminal")
-.version("2.1.0")
+.version("2.2.0")
 .option("--profile <name>", "use a specific config profile", "default");
 
-// ── setup ────────────────────────────────────────────────────────────────────
+// setup
 
 program.command("setup")
 .description("interactive setup wizard")
@@ -51,7 +51,7 @@ program.command("setup")
     });
 });
 
-// ── config ──────────────────────────────────────────────────────────────────
+// config
 
 program
 .command("config")
@@ -78,7 +78,7 @@ program
     console.log("\x1b[32m✓ config saved\x1b[0m");
 });
 
-// ── stats ────────────────────────────────────────────────────────────────────
+// stats
 
 program.command("me")
 .description("profile overview")
@@ -119,6 +119,7 @@ program.command("now")
 .description("now playing")
 .option("--info", "show track details")
 .option("--love", "love the currently playing track")
+.option("--watch", "auto-refresh every 30s")
 .option("--json", "raw JSON")
 .action(opts => run(opts, cmdNow));
 
@@ -168,7 +169,7 @@ program.command("share")
 .option("--json", "raw JSON")
 .action(opts => run(opts, cmdShare));
 
-// ── discovery ────────────────────────────────────────────────────────────────
+// discovery
 
 program.command("similar <artist>")
 .description("artists similar to <artist>")
@@ -209,7 +210,7 @@ program.command("obsession")
 .description("your current listening obsession")
 .action(opts => run(opts, cmdObsession));
 
-// ── social ───────────────────────────────────────────────────────────────────
+// social
 
 program.command("compare-user <user1> <user2>")
 .description("compare two Last.fm profiles")
@@ -232,7 +233,7 @@ program.command("friends-top")
 .option("-p, --period <period>", "period", "1month")
 .action(opts => run(opts, cmdFriendsTop));
 
-// ── account ──────────────────────────────────────────────────────────────────
+// account
 
 program.command("auth")
 .description("authenticate for write operations (love, unlove, ban)")
@@ -260,7 +261,7 @@ program.command("love-now")
 .description("love the currently playing track")
 .action(() => runWith({}, cmdLoveNow));
 
-// ── data ─────────────────────────────────────────────────────────────────────
+// data
 
 program.command("export")
 .description("export your scrobbles to JSON or CSV")
@@ -281,13 +282,18 @@ program.command("stats-raw")
 program.command("cache")
 .description("manage local cache")
 .option("--clear", "clear all cached data")
-.option("--status", "show cache info")
+.option("--ttl <minutes>", "set cache TTL in minutes")
 .action(opts => {
     if (opts.clear) return cmdCacheClear();
+    if (opts.ttl) {
+        const cfg = requireConfig();
+        const profile = program.opts().profile;
+        return cmdCacheTTL(cfg, opts.ttl, profile);
+    }
     cmdCacheStatus();
 });
 
-// ── completions ──────────────────────────────────────────────────────────────
+// completions
 
 program.command("completions <shell>")
 .description("generate shell completions (fish, zsh, bash)")
@@ -295,7 +301,7 @@ program.command("completions <shell>")
 
 program.parse();
 
-// ── helpers ──────────────────────────────────────────────────────────────────
+// helpers
 
 function requireConfig() {
     const profile = program.opts().profile;
