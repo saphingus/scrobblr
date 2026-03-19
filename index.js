@@ -7,7 +7,7 @@ import {
     cmdMe, cmdArtists, cmdTracks, cmdAlbums,
     cmdRecent, cmdNow, cmdStreak, cmdLoved,
     cmdCompare, cmdPeak, cmdHeatmap, cmdMilestones,
-    cmdHour, cmdDay, cmdWrapped
+    cmdHour, cmdDay, cmdWrapped, cmdShare
 } from "./lib/commands/stats.js";
 
 import {
@@ -29,13 +29,14 @@ import {
 } from "./lib/commands/data.js";
 
 import { cmdSetup } from "./lib/commands/setup.js";
+import { cmdCompletions } from "./lib/commands/completions.js";
 
 const PERIODS = ["7day", "1month", "3month", "6month", "12month", "overall"];
 
 program
 .name("scrobblr")
 .description("Last.fm stats in your terminal")
-.version("2.0.0")
+.version("2.1.0")
 .option("--profile <name>", "use a specific config profile", "default");
 
 // ── setup ────────────────────────────────────────────────────────────────────
@@ -82,6 +83,7 @@ program
 program.command("me")
 .description("profile overview")
 .option("--json", "raw JSON")
+.option("--compact", "compact one-line output")
 .action(opts => run(opts, cmdMe));
 
 program.command("artists")
@@ -109,12 +111,14 @@ program.command("recent")
 .description("recent scrobbles")
 .option("-l, --limit <n>", "results", "15")
 .option("--live", "auto-refresh every 30s")
+.option("--artist <name>", "filter by artist")
 .option("--json", "raw JSON")
 .action(opts => run(opts, cmdRecent));
 
 program.command("now")
 .description("now playing")
 .option("--info", "show track details")
+.option("--love", "love the currently playing track")
 .option("--json", "raw JSON")
 .action(opts => run(opts, cmdNow));
 
@@ -157,6 +161,12 @@ program.command("wrapped")
 .description("your annual wrapped")
 .option("-y, --year <year>", "year")
 .action(opts => run(opts, cmdWrapped));
+
+program.command("share")
+.description("generate a shareable listening summary")
+.option("-p, --period <period>", "period", "7day")
+.option("--json", "raw JSON")
+.action(opts => run(opts, cmdShare));
 
 // ── discovery ────────────────────────────────────────────────────────────────
 
@@ -276,6 +286,12 @@ program.command("cache")
     if (opts.clear) return cmdCacheClear();
     cmdCacheStatus();
 });
+
+// ── completions ──────────────────────────────────────────────────────────────
+
+program.command("completions <shell>")
+.description("generate shell completions (fish, zsh, bash)")
+.action((shell) => cmdCompletions(shell));
 
 program.parse();
 

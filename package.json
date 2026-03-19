@@ -4,7 +4,9 @@
   "description": "Last.fm stats in your terminal",
   "type": "module",
   "bin": {
-    "scrobblr": "./index.js"
+  "scrobblr": "./index.js",
+  "s": "./index.js"
+
   },
   "author": "saphingus",
   "license": "GPL-3.0",

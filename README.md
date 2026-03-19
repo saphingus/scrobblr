@@ -6,23 +6,17 @@ A lightweight command-line interface for Last.fm statistics and discovery.
 [![license](https://img.shields.io/badge/license-GPL--v3-2563eb?style=flat-square&labelColor=1e293b)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-2563eb?style=flat-square&labelColor=1e293b&logo=node.js&logoColor=white)](https://nodejs.org)
 
----
-
 ## Overview
 
 scrobblr is a lightweight command‑line interface for interacting with the Last.fm  API. It provides fast access to your listening statistics, discovery tools, social features directly from the terminal.
 
 **Requirements**: Node.js 18 or higher
 
----
-
 ## Installation
 
 ```bash
 npm install -g scrobblr
 ```
-
----
 
 ## Quick Start
 
@@ -42,6 +36,15 @@ scrobblr includes commands for stats, discovery, social features, account action
 - `-p, --period` - time period (`7day`, `1month`, `3month`, `6month`, `12month`, `overall`)
 - `-l, --limit` - number of results (default: 10)
 - `--json` - raw JSON output
+- `--live` - auto-refresh every 30s (`recent` only)
+- `--info` - show full track details (`now` only)
+- `--love` - love the currently playing track (`now` only)
+- `--compact` - compact one-line output (`me` only)
+- `--artist <name>` - filter by artist (`recent` only)
+- `--full` - export up to 10,000 scrobbles (`export` only)
+- `--format <fmt>` - output format, `json` or `csv` (`export` only)
+- `--secret <secret>` - Last.fm API secret (`config` only)
+- `--clear` - clear cached data (`cache` only)
 
 ### Examples
 
@@ -50,6 +53,44 @@ scrobblr artists -p 7day -l 5
 scrobblr tracks -p overall -l 20
 scrobblr compare 7day overall
 ```
+
+## Shell Completions
+
+scrobblr supports tab-completion for fish, zsh, and bash. Once installed, pressing `Tab` after `scrobblr` will suggest available commands and options.
+
+### fish
+```bash
+scrobblr completions fish > ~/.config/fish/completions/scrobblr.fish
+```
+
+No further action needed. fish loads completions automatically from this directory.
+
+### zsh
+```bash
+mkdir -p ~/.zsh/completions
+scrobblr completions zsh > ~/.zsh/completions/_scrobblr
+```
+
+Make sure your `.zshrc` includes the completions directory:
+```bash
+fpath=(~/.zsh/completions $fpath)
+autoload -Uz compinit && compinit
+```
+
+Then reload your shell:
+```bash
+source ~/.zshrc
+```
+
+### bash
+```bash
+scrobblr completions bash >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Updating completions
+
+If you upgrade scrobblr and new commands are added, re-run the appropriate command above to update your completions.
 
 ## Commands
 
@@ -74,6 +115,7 @@ scrobblr compare 7day overall
 | `scrobblr hour` | Listening activity by hour |
 | `scrobblr day` | Listening activity by weekday |
 | `scrobblr wrapped` | Annual wrapped |
+| `scrobblr share` | Generate a shareable listening summary |
 
 ### Discovery
 
@@ -117,12 +159,22 @@ scrobblr compare 7day overall
 | `scrobblr stats-raw` | Raw stats (JSON) |
 | `scrobblr cache` | Show cache info |
 | `scrobblr cache --clear` | Clear cache |
+| `scrobblr completions <shell>` | Generate shell completions (fish, zsh, bash) |
 
 ## Changelog
 All notable changes to this project are documented here.
 
 This project follows the principles of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.1.0] - 2026-03-19
+### Added
+* New `share` command to generate a shareable summary of your listening stats.
+* New `completions` command to generate shell completions for fish, zsh, and bash.
+* `s` as a shorter alias for all commands.
+* `now --love` flag to love the currently playing track directly.
+* `recent --artist <name>` flag to filter recent scrobbles by artist.
+* `me --compact` flag for a compact one-line profile overview.
 
 ## [2.0.3] - 2026-03-19
 ### Changed
