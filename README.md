@@ -124,6 +124,14 @@ All notable changes to this project are documented here.
 This project follows the principles of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2026-03-19
+### Changed
+- Added robust error handling in the API call function, covering network errors, HTTP status codes, and Last.fm API errors.
+- Implemented automatic retries for failed requests with a fixed delay.
+- Improved URL construction to correctly handle optional user parameter.
+- Clear and descriptive error messages for invalid API key, user not found, and other common API issues.
+- Removed `---` separators in README for cleaner appearance.
+
 ## [2.0.2] - 2026-03-19
 ### Changed
 - Improved README structure and examples for better clarity
