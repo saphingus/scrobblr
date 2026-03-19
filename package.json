@@ -1,6 +1,6 @@
 {
   "name": "scrobblr",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Last.fm stats in your terminal",
   "type": "module",
   "bin": {
