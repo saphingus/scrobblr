@@ -6,9 +6,14 @@ A lightweight command-line interface for Last.fm statistics and discovery.
 [![license](https://img.shields.io/badge/license-GPL--v3-2563eb?style=flat-square&labelColor=1e293b)](LICENSE)
 [![node](https://img.shields.io/badge/node-%3E%3D18-2563eb?style=flat-square&labelColor=1e293b&logo=node.js&logoColor=white)](https://nodejs.org)
 
+## Status
+
+This project is no longer maintained.
+Feel free to fork or reuse.
+
 ## Overview
 
-scrobblr is a lightweight command‑line interface for interacting with the Last.fm  API. It provides fast access to your listening statistics, discovery tools, social features directly from the terminal.
+Scrobblr is a lightweight command‑line interface for interacting with the Last.fm  API. It provides fast access to your listening statistics, discovery tools, social features directly from the terminal.
 
 **Requirements**: Node.js 18 or higher
 
